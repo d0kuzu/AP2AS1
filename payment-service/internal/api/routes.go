@@ -1,7 +1,7 @@
 package api
 
 import (
-	"assign1/internal/api/chat"
+	"assign1/internal/api/payment"
 	appModule "assign1/internal/app"
 	"log"
 
@@ -19,7 +19,7 @@ func RouterStart(app *appModule.App) {
 		MaxAge:       12 * 60 * 60,
 	}))
 
-	chat.ChatRoutes(r, app)
+	payment.PaymentRoutes(r, app)
 
 	err := r.Run(":" + app.Cfg.HttpPort)
 	if err != nil {

@@ -5,11 +5,11 @@ import (
 )
 
 type Repositories struct {
-	Chat *ChatRepository
+	Order *OrderRepository
 }
 
 func NewRepositories(pool *pgxpool.Pool) *Repositories {
 	return &Repositories{
-		Chat: NewChatRepository(pool),
+		Order: NewOrderRepository(pool),
 	}
 }

@@ -1,2 +1,2 @@
-DROP TABLE IF EXISTS messages;
-DROP TABLE IF EXISTS chats;
+DROP TABLE IF EXISTS orders;
+DROP TYPE IF EXISTS order_status;
