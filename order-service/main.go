@@ -24,6 +24,10 @@ func main() {
 		log.Fatal("Failed to initialize database pool:", err)
 	}
 
+	if err := database.RunMigrations(settings.GetDSN()); err != nil {
+		log.Fatal("Failed to run migrations:", err)
+	}
+
 	cm := &cleanup.CleanupManager{}
 	cm.Add(pool.Close)
 	go cm.Wait()
