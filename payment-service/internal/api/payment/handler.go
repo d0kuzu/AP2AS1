@@ -21,12 +21,21 @@ func NewPaymentHandler(cfg *config.Settings, repo *repositories.PaymentRepositor
 
 func (h *PaymentHandler) ProcessPayment(c *gin.Context) {
 	var req struct {
-		OrderID string `json:"order_id" binding:"required"`
-		Amount  int64  `json:"amount" binding:"required,gt=0"`
+		OrderID string `json:"order_id"`
+		Amount  int64  `json:"amount"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request body"})
+		return
 	}
 
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if req.OrderID == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "order id is required"})
+		return
+	}
+
+	if req.Amount <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "amount must be positive"})
 		return
 	}
 
@@ -54,7 +63,7 @@ func (h *PaymentHandler) ProcessPayment(c *gin.Context) {
 func (h *PaymentHandler) GetPaymentStatus(c *gin.Context) {
 	orderID := c.Param("order_id")
 	if orderID == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "order_id is required"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "order id is required"})
 		return
 	}
 

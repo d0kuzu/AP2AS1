@@ -6,6 +6,7 @@ import (
 	"embed"
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/pgx/v5"
@@ -41,7 +42,9 @@ func RunMigrations(dsn string) error {
 		return fmt.Errorf("failed to create iofs driver: %w", err)
 	}
 
-	m, err := migrate.NewWithSourceInstance("iofs", driver, dsn)
+	migrationURL := strings.Replace(dsn, "postgres://", "pgx5://", 1)
+
+	m, err := migrate.NewWithSourceInstance("iofs", driver, migrationURL)
 	if err != nil {
 		return fmt.Errorf("failed to create migrate instance: %w", err)
 	}

@@ -1,9 +1,9 @@
 package order
 
 type CreateOrderRequest struct {
-	CustomerID string `json:"customer_id" binding:"required"`
-	ItemName   string `json:"item_name" binding:"required"`
-	Amount     int64  `json:"amount" binding:"required,gt=0"`
+	CustomerID string `json:"customer_id"`
+	ItemName   string `json:"item_name"`
+	Amount     int64  `json:"amount"`
 }
 
 type PaymentRequest struct {

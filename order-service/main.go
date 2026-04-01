@@ -8,6 +8,7 @@ import (
 	"assign1/internal/database"
 	"assign1/internal/database/repositories"
 	"context"
+	"fmt"
 	"log"
 )
 
@@ -18,6 +19,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println(settings.GetDSN())
 
 	pool, err := database.InitPool(ctx, settings)
 	if err != nil {

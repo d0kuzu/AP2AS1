@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 
@@ -21,12 +22,8 @@ type Settings struct {
 }
 
 func (s *Settings) GetDSN() string {
-	return "host=" + s.DbHost +
-		" user=" + s.DbUser +
-		" password=" + s.DbPassword +
-		" dbname=" + s.DbName +
-		" port=" + s.DbPort +
-		" sslmode=" + s.Ssl
+	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s",
+		s.DbUser, s.DbPassword, s.DbHost, s.DbPort, s.DbName, s.Ssl)
 }
 
 func LoadConfig() (*Settings, error) {
