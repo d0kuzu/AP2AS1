@@ -15,9 +15,10 @@ type Settings struct {
 	DbPort     string
 	Ssl        string
 
-	HttpPort    string
-	TokenPrefix string
-	TokenLength int
+	HttpPort           string
+	TokenPrefix        string
+	TokenLength        int
+	PaymentServiceURL  string
 }
 
 func (s *Settings) GetDSN() string {
@@ -40,9 +41,10 @@ func LoadConfig() (*Settings, error) {
 		DbPort:     os.Getenv("DB_PORT"),
 		Ssl:        os.Getenv("DB_SSL"),
 
-		HttpPort:    os.Getenv("HTTP_PORT"),
-		TokenPrefix: os.Getenv("TOKEN_PREFIX"),
-		TokenLength: getEnvAsInt("TOKEN_LENGTH", 32),
+		HttpPort:           os.Getenv("HTTP_PORT"),
+		TokenPrefix:        os.Getenv("TOKEN_PREFIX"),
+		TokenLength:        getEnvAsInt("TOKEN_LENGTH", 32),
+		PaymentServiceURL:  os.Getenv("PAYMENT_SERVICE_URL"),
 	}, nil
 }
 

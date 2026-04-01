@@ -11,7 +11,8 @@ func OrderRoutes(router *gin.Engine, app *appModule.App) {
 
 	orderGroup := router.Group("orders")
 	{
-		orderGroup.POST("/create", h.CreateOrder)
-		orderGroup.GET("/get_all", h.GetOrders)
+		orderGroup.POST("/", h.CreateOrder)
+		orderGroup.GET("/:id", h.GetOrder)
+		orderGroup.PATCH("/:id/cancel", h.CancelOrder)
 	}
 }

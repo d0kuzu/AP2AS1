@@ -11,7 +11,7 @@ func PaymentRoutes(router *gin.Engine, app *appModule.App) {
 
 	paymentGroup := router.Group("payments")
 	{
-		paymentGroup.POST("/process", h.ProcessPayment)
-		paymentGroup.GET("/get_all", h.GetPayments)
+		paymentGroup.POST("/", h.ProcessPayment)
+		paymentGroup.GET("/:order_id", h.GetPaymentStatus)
 	}
 }
